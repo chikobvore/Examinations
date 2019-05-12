@@ -1,0 +1,53 @@
+{% extends 'Home.html' %}
+  {% block content %}
+      <div class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">New Class</h4>
+              <p class="card-category">Record Marks</p>
+            </div>
+            <div class="card-body">
+              <div id="typography">
+                <div class="card-title">
+                  <h2></h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="POST" action="/Addmarks">
+                          <div class="form-group">
+                              <label class="control-label">Select Course</label>
+                              <select class="form-control">
+                                <option>ISE213 Compiler Design</option>
+                                <option>ISE214 Micro processor</option>
+                              </select>
+                          </div>
+                          <br>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class = "control-label">Total Course work</label>
+                                  <input type="number" max="0" min="99" class="form-control">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <label class="control-label">Exam mark</label>
+                                <input type="number" class="form-control"  name="col-md-6">
+                              </div>
+                            </div>
+                            
+                            <center>
+                              <button type="submit" class="form-control">Save Changes</button>
+                            </center>
+                            
+                        </form>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     {% endblock %}

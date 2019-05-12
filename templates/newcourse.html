@@ -1,0 +1,50 @@
+{% extends 'Home.html' %}
+  {% block content %}
+      <div class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h4 class="card-title">New Class</h4>
+              <p class="card-category">Registering new class</p>
+            </div>
+            <div class="card-body">
+              <div id="typography">
+                <div class="card-title">
+                  <h2></h2>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form method="POST" action="/Addmarks">
+                            <div class="form-group">
+                                    <label class="control-label">Course code</label><br>
+                                    <input type="text" class="form-control" placeholder="Course code here...." name="code">
+
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label class="control-label">Course Name</label>
+                                <input type="text" class="form-control" name="name">
+                            </div>
+                            <br>
+                            <div class="form-group">
+                                <label class="control-label">Course type</label>
+                                <select class="form-control" name="type">
+                                    <option>Practical Course</option>
+                                    <option>Theory Course</option>
+                                </select>
+                            </div>
+                            <br><br>
+                            <center>
+                                    <button type="submit" class="btn btn-default">Save Changes</button>
+                            </center>
+                            
+                        </form>
+                    </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+     {% endblock %}
