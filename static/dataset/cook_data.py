@@ -214,8 +214,7 @@ NewData = {
         "Course Work": TCW,
         "Exam Mark": EM,
         "Total": TM,
-        "Grade": Grade,
         "Comment": Comment
     }
-Dataset = pd.DataFrame(NewData,columns= ['Course Work','Exam Mark','Total','Grade','Comment'])
+Dataset = pd.DataFrame(NewData,columns= ['Course Work','Exam Mark','Total','Comment'])
 Export = Dataset.to_csv('newdata.csv',index=None,header=True)

@@ -14,12 +14,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-                        <form method="POST" action="/Addmarks">
+                        <form method="POST" action="/Record">
                           <div class="form-group">
                               <label class="control-label">Select Course</label>
-                              <select class="form-control">
-                                <option>ISE213 Compiler Design</option>
-                                <option>ISE214 Micro processor</option>
+                              <select class="form-control" name="course">
+                                  {% for course in Course %}
+                                <option>{{course.Course_code +" "+course.Course_name}}</option>
+                                {% endfor %}
                               </select>
                           </div>
                           <br>
@@ -27,18 +28,37 @@
                             <div class="row">
                               <div class="col-md-6">
                                 <div class="form-group">
-                                  <label class = "control-label">Total Course work</label>
-                                  <input type="number" max="0" min="99" class="form-control">
+                                  <label class="control-label">Reg Number</label>
+                                  <input type="text" class="form-control" name="RegNum">
                                 </div>
                               </div>
                               <div class="col-md-6">
-                                <label class="control-label">Exam mark</label>
-                                <input type="number" class="form-control"  name="col-md-6">
+                                <div class="form-group">
+                                  <label class="control-label">Full Name</label>
+                                  <input type="text" class="form-control" name="fullname">
+                                </div>
                               </div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="row">
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                  <label class = "control-label">Total Course work</label>
+                                  <input type="number" max="100" min="0" class="form-control" name="tcw">
+                                </div>
+                              </div>
+                              <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label">Exam mark</label>
+                                    <input type="number" class="form-control" min="0" max="100" name="tem">
+                                 
+                                </div>
+                                 </div>
                             </div>
                             
                             <center>
-                              <button type="submit" class="form-control">Save Changes</button>
+                              <button type="submit" class="btn btn-primary">Save Changes</button>
                             </center>
                             
                         </form>
