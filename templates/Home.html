@@ -53,25 +53,25 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
+            <a class="nav-link" href="{{url_for('home')}}">
               <i class="material-icons"></i>
               <p>View Marks</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
+            <a class="nav-link" href="{{url_for('Record')}}">
               <i class="material-icons"></i>
               <p>Update Marks</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
+            <a class="nav-link" href="{{url_for('delete')}}">
               <i class="material-icons"></i>
               <p>Delete Marks</p>
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
+            <a class="nav-link" href="#">
               <i class="material-icons"></i>
               <p>Print Marks</p>
             </a>
@@ -83,10 +83,10 @@
             </a>
           </li> -->
           <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
+            <button class="btn btn-primary"  onclick="window.close()">
               <i class="material-icons"></i>
               <p>Log Out</p>
-            </a> 
+            </button> 
           </li>
         </ul>
       </div>
@@ -142,7 +142,7 @@
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="material-icons">Nyasha Chikobvore</i>
+                  <i class="material-icons">CHIEF EXAMINER</i>
                   <p class="d-lg-none d-md-block">
                     Account
                   </p>
@@ -167,7 +167,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title ">May June Examinations</h4>
+                  <h4 class="card-title ">Examinations</h4>
                   <p class="card-category">Summary</p>
                 </div>
                 <div class="card-body">
@@ -185,29 +185,19 @@
                         <th>Comment</th>
                       </thead>
                       <tbody>
+                        {% for mark in Anomallies %}
                         <tr>
-                          <td>IIT423</td>
-                          <td>Artificial Intelligence</td>
-                          <td>5</td>
-                          <td>14</td>
-                          <td>13</td>
-                          <td>12</td>
-                          <th>11</th>
-                          <td>55</td>
-                          <th>Normal</th>
+                          <td>{{mark.Course_code}}</td>
+                          <td>{{mark.Course_name}}</td>
+                          <td>{{mark.a}}</td>
+                          <td>{{mark.b}}</td>
+                          <td>{{mark.c}}</td>
+                          <td>{{mark.P}}</td>
+                          <th>{{mark.F}}</th>
+                          <td>{{mark.Total}}</td>
+                          <th>{{mark.Comment[0]}}</th>
                         </tr>
-                        <tr>
-                          <td>ISE414</td>
-                          <td>Software Testing</td>
-                          <td>44</td>
-                          <td>24</td>
-                          <td>11</td>
-                          <td>5</td>
-                          <td>1</td>
-                          <td>85</td>
-                          <td>TOO HIGH GRADES</td>
-                        </tr>
-                        
+                        {% endfor %}
                       </tbody>
                     </table>
                   </div>

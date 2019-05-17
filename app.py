@@ -11,12 +11,13 @@ from sklearn.model_selection import train_test_split
 # loading datasets here
 
 data = pd.read_csv('static/dataset/newdata.csv')
-print(data.head())
 inputs = data.drop("Comment",axis = 1)
 
 le = preprocessing.LabelEncoder()
 
 Target = le.fit_transform(data['Comment'])
+
+    
 
 '''Spliting data into training set and testing set '''
 xTrain, xTest, yTrain, yTest = train_test_split(inputs,Target, test_size = 0.3, random_state = 0)
@@ -26,13 +27,56 @@ Model =  tree.DecisionTreeClassifier()
 Model.fit(xTrain,yTrain)
 Model.score(xTrain,yTrain)
 
+data2b  = pd.read_csv("static/dataset/D2.csv")
+# splitting data into inputs and outputs
+input2 = data2b.drop("Remarks", axis=1)
+lb2 = preprocessing.LabelEncoder()
+Target2 = lb2.fit_transform(data2b['Remarks'])
+#Split data into training set and testing set
+x1Train, x1Test, y1Train, y1Test = train_test_split(input2,Target2, test_size = 0.3, random_state = 0)
+
+Model2 = tree.DecisionTreeClassifier()
+Model2.fit(x1Train,y1Train)
+
 app = Flask(__name__)
 client = pymongo.MongoClient('localhost', 27017)
-db = client['Exams']
+db = client['Exam_record']
 
 @app.route('/')
 def home():
-   return render_template('Home.html')
+   Anomallies = []
+   for course in db['Courses'].find():
+      name = course['Course_code']+ " "+ course['Course_name']
+      Total = db['Marks'].find({"Course": name}).count()
+      A = db['Marks'].find({"$and":[{"Course": name},{"Grade":"1"}]}).count()
+      B = db['Marks'].find({"$and":[{"Course": name},{"Grade":"2.1"}]}).count()
+      C = db['Marks'].find({"$and":[{"Course": name},{"Grade":"2.2"}]}).count()
+      D = db['Marks'].find({"$and":[{"Course": name},{"Grade":"P"}]}).count()
+      F = db['Marks'].find({"$and":[{"Course": name},{"Grade":"F"}]}).count()
+
+      A1 = (A/Total)*100
+      B1 = (B/Total)*100
+      C1 = (C/Total)*100
+      D1 = (D/Total)*100
+      F1 = (F/Total)*100
+
+      Predict = Model2.predict([[A1,B1,C1,D1,F1]])
+      Anomally = lb2.inverse_transform(Predict)
+
+      data = {
+         "Course_code": course['Course_code'],
+         "Course_name": course['Course_name'],
+         "a":A,
+         "b":B,
+         "c":C,
+         "P":D,
+         "F":F,
+         "Total":Total,
+         "Comment":Anomally
+      }
+      Anomallies.append(data)
+      
+   return render_template('Home.html',Anomallies = Anomallies)
 
 @app.route('/Record',methods = ['POST','GET'])
 def Record():
@@ -130,13 +174,15 @@ def newcourse():
       return render_template('Home.html')
    return render_template('newcourse.html')
 
-@app.route('/students')
-def students():
-   return render_template('students.html')
+@app.route('/delete')
+def delete():
+   db['Courses'].delete_many({})
+   db['Marks'].delete_many({})
+   return render_template('Home.html')
 
 if __name__ == '__main__':
    app.secret_key = 'super secret key'
    app.config['SESSION_TYPE'] = 'filesystem'
-   app.debug = True
+   # app.debug = True
    app.run()
-   app.run(debug = True)
+   # app.run(debug = True)
