@@ -180,9 +180,13 @@ def delete():
    db['Marks'].delete_many({})
    return render_template('Home.html')
 
+@app.route('/Marks')
+def Marks():
+   return render_template('Marks.html')
+
 if __name__ == '__main__':
    app.secret_key = 'super secret key'
    app.config['SESSION_TYPE'] = 'filesystem'
-   # app.debug = True
+   app.debug = True
    app.run()
-   # app.run(debug = True)
+   app.run(debug = True)
